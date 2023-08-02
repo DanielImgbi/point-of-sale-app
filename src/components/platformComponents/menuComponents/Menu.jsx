@@ -18,7 +18,7 @@ const Menu = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "http://point-of-sales-app-api.onrender.com/api/menu/"
+        "https://point-of-sales-app-api.onrender.com/api/menu/"
       );
       const data = response.json();
       console.log(data);

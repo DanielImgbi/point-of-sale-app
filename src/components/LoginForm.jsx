@@ -15,7 +15,7 @@ const LoginForm = () => {
 
   const onsubmit = async (data) => {
     const response = await fetch(
-      "http://point-of-sales-app-api.onrender.com/auth/login/",
+      "https://point-of-sales-app-api.onrender.com/auth/login/",
       {
         method: "POST",
         headers: { "content-type": "application/json" },

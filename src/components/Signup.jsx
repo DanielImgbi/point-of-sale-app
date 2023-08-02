@@ -16,7 +16,8 @@ const Signup = () => {
     console.log(data);
 
     const response = await fetch(
-      "http://point-of-sales-app-api.onrender.com/auth/signup",
+      "https://point-of-sales-app-api.onrender.com/auth/signup",
+
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
