@@ -12,15 +12,28 @@ const Signup = () => {
 
   const navigator = useNavigate();
 
-  const onsubmit = (data) => {
-    localStorage.Posapp = JSON.stringify({ admins: [], users: [] });
-    let store = JSON.parse(localStorage.Posapp),
-      adminStore = store.admins,
-      mainStore = JSON.parse(localStorage.Posapp);
+  const onsubmit = async (data) => {
+    console.log(data);
 
-    adminStore.push(data);
-    mainStore = { ...mainStore, admins: adminStore };
-    localStorage.Posapp = JSON.stringify(mainStore);
+    const response = await fetch(
+      "https://point-of-sales-app-api.onrender.com/auth/signup",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      }
+    );
+
+    localStorage.token = JSON.stringify(response);
+    console.log(response);
+    // localStorage.Posapp = JSON.stringify({ admins: [], users: [] });
+    // let store = JSON.parse(localStorage.Posapp),
+    //   adminStore = store.admins,
+    //   mainStore = JSON.parse(localStorage.Posapp);
+
+    // adminStore.push(data);
+    // mainStore = { ...mainStore, admins: adminStore };
+    // localStorage.Posapp = JSON.stringify(mainStore);
 
     navigator("/platform");
   };
@@ -71,6 +84,21 @@ const Signup = () => {
             </span>
           </div>
           <p className="text-red-500 text-sm">{errors.email?.message}</p>
+        </div>
+
+        <div className="space-y-2">
+          <div className="w-80 flex items-center rounded border-2 border-green-300">
+            <select
+              className="w-full outline-none py-2 px-3"
+              {...register("post", {
+                required: "This field is required",
+              })}
+            >
+              <option value="administrator">Administrator</option>
+              <option value="moderator">Moderator</option>
+            </select>
+          </div>
+          <p className="text-red-500 text-sm">{errors.password?.message}</p>
         </div>
 
         <div className="space-y-2">
