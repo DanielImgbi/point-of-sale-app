@@ -13,9 +13,19 @@ const LoginForm = () => {
 
   const navigator = useNavigate();
 
-  const onsubmit = (data) => {
-    console.log(data);
-    navigator("/platform");
+  const onsubmit = async (data) => {
+    const response = await fetch(
+      "http://point-of-sales-app-api.onrender.com/auth/login/",
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      }
+    );
+    console.log(response);
+    console.log(response.text());
+    // console.log(data);
+    response.ok ? navigator("/platform") : alert("fail to submit");
   };
 
   return (
