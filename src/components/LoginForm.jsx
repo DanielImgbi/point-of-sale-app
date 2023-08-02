@@ -3,15 +3,33 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { FaLock, FaEnvelope } from "react-icons/fa";
+import { useEffect } from "react";
 
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
 
   const navigator = useNavigate();
+
+  useEffect(() => {
+    async function fetchData() {
+      const url = "https://point-of-sale-app-api.onrender.com/auth/login";
+      try {
+        const fetcher = await fetch(url);
+        if (!fetcher.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const resp = await fetcher.json();
+        console.log(resp);
+      } catch (err) {
+        console.error("Error Occurred:", err);
+      }
+    }
+    fetchData();
+  }, []);
 
   const onsubmit = (data) => {
     console.log(data);
@@ -36,14 +54,12 @@ const LoginForm = () => {
               className="w-5/6 outline-none py-2 pl-3"
               {...register("email", {
                 required: "This field is required",
-                // validate: (fieldValue) => validator(fieldValue, "email"),
               })}
             />
             <span className="w-1/6 h-10 flex items-center justify-center border-l-2 border-green-300">
               <FaEnvelope className="text-gray-500" />
             </span>
           </div>
-          <p className="text-red-500 text-sm">{errors.email?.message}</p>
         </div>
 
         <div className="space-y-2">
@@ -60,7 +76,6 @@ const LoginForm = () => {
               <FaLock className="text-gray-500" />
             </span>
           </div>
-          <p className="text-red-500 text-sm">{errors.password?.message}</p>
         </div>
 
         <div className="space-y-2">
@@ -75,8 +90,9 @@ const LoginForm = () => {
               <option value="moderator">Moderator</option>
             </select>
           </div>
-          <p className="text-red-500 text-sm">{errors.password?.message}</p>
         </div>
+
+        <p className="text-red-500 text-sm">{"Incorrect email or password"}</p>
 
         <button
           className={`w-80 flex py-2 transition items-center justify-center 
