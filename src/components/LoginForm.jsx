@@ -24,7 +24,7 @@ const LoginForm = () => {
     );
     console.log(response);
     console.log(response.text());
-    // console.log(data);
+    console.log(data);
     response.ok ? navigator("/platform") : alert("fail to submit");
   };
 
