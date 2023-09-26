@@ -1,7 +1,3 @@
-/* eslint-disable react/prop-types */
-
-import { useContext } from "react";
-
 import pasta from "/pasts-1.jpg";
 import pizza from "/pizza-2.jpg";
 import burger from "/burger1.jpg";
@@ -12,11 +8,10 @@ import chocolateCake from "/newcake6.jpg";
 
 import HomeRecordCard from "./HomeRecordCard";
 import HomeMenuContentCard from "./HomeMenuContentCard";
-import platformContext from "../../../contexts/platformContext";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const { handleNavItem } = useContext(platformContext);
-
+  const navigateTo = useNavigate();
   return (
     <aside className="w-full max-h-full flex flex-col">
       <div className="flex items-center justify-between p-5">
@@ -29,7 +24,7 @@ const Home = () => {
           </p>
           <button
             className="px-5 py-2 text-gray-100 text-sm font-semibold transition bg-green-400 rounded hover:scale-105"
-            onClick={() => handleNavItem(2, "menu")}
+            onClick={() => navigateTo("/platform/menu")}
           >
             Get Started
           </button>

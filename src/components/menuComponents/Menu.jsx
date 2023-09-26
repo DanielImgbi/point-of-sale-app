@@ -1,4 +1,4 @@
-// import React from 'react'
+import { useEffect } from "react";
 
 import Categories from "./Categories";
 
@@ -8,11 +8,27 @@ import {
   FaHamburger,
   //   FaPizzaSlice,
 } from "react-icons/fa";
-import FoodCard from "./FoodCard";
+// import FoodCard from "./FoodCard";
 // import { GiChickenOven } from "react-icons/gi";
 // import { BiSolidBowlRice } from "react-icons/bi";
 
 const Menu = () => {
+  // const [menus, setMenus] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://point-of-sales-app-api.onrender.com/api/menu/"
+      );
+      const data = response.json();
+      data
+        .then((result) => console.log(result))
+        .catch((err) => console.log(err));
+      // setMenus(data);
+    };
+
+    fetchData();
+  }, []);
   return (
     <aside className="Carosel w-full max-h-full flex flex-col px-10 py-5 overflow-auto space-y-10">
       <header className="w-full flex justify-between items-center">
@@ -81,17 +97,9 @@ const Menu = () => {
           </Categories>
         </header>
         <section className="max-w-full grid grid-cols-5 gap-10 p-3">
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
-          <FoodCard />
+          {/* {menus.map((menu) => (
+            <FoodCard key={menu._id} />
+          ))} */}
         </section>
       </div>
     </aside>

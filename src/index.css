@@ -5,3 +5,6 @@
 .Carosel::-webkit-scrollbar {
   width: 5px;
 }
+.active {
+  background-color: rgba(61, 244, 61, 0.34);
+}

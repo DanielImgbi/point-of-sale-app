@@ -1,39 +1,30 @@
-/* eslint-disable react/prop-types */
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { FaLock, FaEnvelope } from "react-icons/fa";
-import { useEffect } from "react";
 
 const LoginForm = () => {
+  const [first, setfirst] = useState();
   const {
     register,
     handleSubmit,
     // formState: { errors },
   } = useForm();
 
-  const navigator = useNavigate();
-
-  useEffect(() => {
-    async function fetchData() {
-      const url = "https://point-of-sale-app-api.onrender.com/auth/login";
-      try {
-        const fetcher = await fetch(url);
-        if (!fetcher.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const resp = await fetcher.json();
-        console.log(resp);
-      } catch (err) {
-        console.error("Error Occurred:", err);
+  const onsubmit = async (data) => {
+    const res = await fetch(
+      "https://point-of-sales-app-api.onrender.com/api/auth/login/",
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
       }
-    }
-    fetchData();
-  }, []);
+    );
 
-  const onsubmit = (data) => {
-    console.log(data);
-    navigator("/platform");
+    const resp = await res.json();
+    setfirst(resp);
+    console.log(resp);
   };
 
   return (
@@ -78,21 +69,7 @@ const LoginForm = () => {
           </div>
         </div>
 
-        <div className="space-y-2">
-          <div className="w-80 flex items-center rounded border-2 border-green-300">
-            <select
-              className="w-full outline-none py-2 px-3"
-              {...register("post", {
-                required: "This field is required",
-              })}
-            >
-              <option value="administrator">Administrator</option>
-              <option value="moderator">Moderator</option>
-            </select>
-          </div>
-        </div>
-
-        <p className="text-red-500 text-sm">{"Incorrect email or password"}</p>
+        <p className="w-full text-red-500 text-sm">{JSON.stringify(first)}</p>
 
         <button
           className={`w-80 flex py-2 transition items-center justify-center 
